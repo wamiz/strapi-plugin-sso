@@ -1,7 +1,6 @@
 "use strict";
 const axios = require("axios");
 const { v4 } = require("uuid");
-const pkceChallenge = require("pkce-challenge").default;
 
 const configValidation = () => {
   const config = strapi.config.get("plugin.strapi-plugin-sso");
@@ -34,6 +33,7 @@ async function azureAdSignIn(ctx) {
   const endpoint = OAUTH_ENDPOINT(config["AZUREAD_TENANT_ID"]);
 
   // Generate code verifier and code challenge
+  const pkceChallenge = require("pkce-challenge").default;
   const { code_verifier: codeVerifier, code_challenge: codeChallenge } =
     pkceChallenge();
 
